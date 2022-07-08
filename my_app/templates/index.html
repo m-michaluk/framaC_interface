@@ -1,0 +1,75 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pl">
+    <head>
+        <title>Mock-up</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+        <meta charset="UTF-8">
+        <link rel="stylesheet" href="{% static 'my_app/style.css' %}"/>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+        <link rel="stylesheet" type="text/css" href="https://codemirror.net/lib/codemirror.css">
+        <script type="text/javascript" src="https://codemirror.net/lib/codemirror.js"></script>
+        <script  type="text/javascript" src="{% static 'codemirror/mode/clike/clike.js'%}"></script>    
+        <script  type="text/javascript" src="{% static 'codemirror/keyword.js'%}"></script>    
+        <link rel="stylesheet" type="text/css" href="{% static 'codemirror/theme/ambiance.css'%}">
+
+    </head>
+    <body class="colors-2">
+        <div class="nav-menu">
+            <a class="my_button" href="/upload_file" >Add File</a>
+            <a class="my_button" href="/dir_add" >Add Folder</a>
+            <a class="my_button" href="{% url 'logout' %}" >Logout</a>
+            <div class="my_button" name="save_file" value="Save" onClick="save_file()">Save</div>
+
+            Hello {{user.username}}!
+            <button type="button" name="run" value="Run" onClick="run_frama()">Run</button>           
+
+            <script type="text/javascript">
+                function run_frama(){
+                    var data = {"run" : 'Run', "csrfmiddlewaretoken": "{{csrf_token }}"};
+                    $.post(
+                        "{% url 'run_frama' %}",
+                        data,
+                        function(response) {
+                            if(response){
+                                $(".code-field").html(response['code_field']);
+                                $(".right-nav").html(response['right_field']);
+                                if(response['result_tab']){
+                                    $(".result").html(response['result_text']);
+                                }
+                            
+                            }
+                        }
+                    )
+                }
+
+                function save_file(){
+                    var response = confirm("Do you want to save?");
+                    if(response) {
+                        var new_text = editor.getValue();
+                        var data = {"save" : "Save","text" : new_text, "csrfmiddlewaretoken": "{{csrf_token}}"};
+                    }
+                    $.post(
+                        "{% url 'save_file' %}",
+                        data,
+                        function(response) {
+                        }
+                    )
+                }
+            </script>
+        </div>
+        <nav class="left-bar">
+            {% include "my_app/show_files.html" with tree=tree %}
+        </nav>
+        <div class="main">
+            <div class="code-field">
+                {% include "my_app/display_file.html" with file=file text_field=text_field%}
+            </div>
+            <div class="right-nav">
+                {% include "my_app/focus_on_program_elements.html" %}
+            </div>
+            {% include "my_app/display_tabs.html" %}
+        </div>
+    </body>
+</html>

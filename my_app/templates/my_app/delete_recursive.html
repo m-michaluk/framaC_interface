@@ -1,0 +1,18 @@
+<ul>
+    {% if tree.children %}
+        {% for node in tree.children %}
+            {% if node.dir.availabilityFlag %}
+                <li> <input type="radio" name="to_delete" value="dir {{node.dir.pk}}">{{node.dir.name}}</button>
+                {% include "my_app/delete_recursive.html" with tree=node %}     
+                </li>
+            {%endif%}    
+        {% endfor %}
+    {% endif %}
+    {% for f in tree.files %}    
+        {% if f.availabilityFlag %}
+            <li>
+                <input type="radio" name="to_delete" value="file {{f.pk}}">{{f.name}}</input>
+            </li>
+        {% endif %}    
+    {% endfor %}
+</ul>

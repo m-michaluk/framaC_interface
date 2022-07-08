@@ -1,0 +1,27 @@
+{% for sec in file.filesection_set.all %}
+    {% if sec.validity_flag == True and sec.ref_status_data.status_data != "" %}
+        <div class={{sec.ref_status.status}}>
+            <div id="sec{{sec.pk}}" class="status-summary"><p>line: {{sec.line_nr}} {{sec.ref_category.category}}</p></div>
+            <div id="status{{sec.pk}}" class="status">Prover: {{sec.ref_status_data.prover_name }}<br>{{sec.ref_status_data.status_data|linebreaks}}
+                <span class="statustext">{{sec.description|linebreaks}}</span>
+            </div>
+        </div>
+
+        <script>
+            $(document).ready(function(){
+                $("#sec{{sec.pk}}").click(function(){
+                    $("#status{{sec.pk}}").toggle();
+                });
+            });
+        </script>
+    {%endif%}    
+{% endfor %}
+
+<script>
+
+    $(document).ready(function(){
+        $(".status").hover(function(){
+        $(".statustext").show();
+    })
+    });
+</script>

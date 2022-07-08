@@ -1,0 +1,26 @@
+<ul>
+{% if tree.children %}
+    {% for node in tree.children %}
+        {% if node.dir.availabilityFlag == True %}
+            
+            <li><details open>
+            <summary>{{node.dir.name}}<input type="radio" name="to_delete" value="dir {{node.dir.pk}}"></summary>
+            {% include "my_app/show_files_recursive.html" with tree=node %}     
+            </details>
+        </li>
+        {% endif %}    
+
+    {% endfor %}
+{% endif %}
+
+
+{% for f in tree.files %}
+
+    {% if f.availabilityFlag %}
+        <li> 
+            <button class="file" type="button" name="file_id" value={{f.pk}} onClick="choose_file(this.value)">📄{{f.name}}</button>
+            <input type="radio" name="to_delete" value="file {{f.pk}}"></input>
+        </li>
+    {% endif %}    
+{% endfor %}
+</ul>

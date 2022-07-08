@@ -1,0 +1,324 @@
+* {
+    box-sizing: border-box
+} 
+
+.colors-2 {
+    --nav-menu-color: #443B4F;
+    --code-field-color: #DBC7BD;
+    --text-color-1: black;
+    --text-color-2: white;
+    --color-1: #887370;
+    --color-2: #C9AB95;
+    --color-3: #C5A460;
+    --color-4: #53484670;
+    --buttons-color: #2a2333;
+}
+
+.colors-1 {
+    --nav-menu-color: #4B4A50;
+    --code-field-color: #DED1C9;
+    --text-color-1: black;
+    --text-color-2: white;
+    --color-1: #7B6A58;
+    --color-2: #8b8777;
+    --color-3: #E9D6BE;
+    --buttons-color: #30353D;
+}
+
+.main {
+    display: grid;
+    grid-template-columns: 70% 30%;
+    grid-template-rows: 60% 8% 32%;
+    grid-template-areas: 
+        "code-field right-nav"
+        "bottom-tabs bottom-tabs"
+        "tab-data tab-data";
+    width: 85%;
+    height: 92%;   
+}
+
+html, body {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    font-size: 100%;
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: var(--color-2);
+}
+.code-field {
+    grid-area: code-field;
+    overflow: auto;
+    padding: 0px 0px;
+    margin: 0px 0px;
+    background-color: #202020;
+    color: var(--text-color-1)
+}
+.CodeMirror { height: 100%; }
+
+.right-nav {
+    grid-area: right-nav;
+    overflow: auto;
+    padding: 5px 5px;
+    background-color: var(--color-1);
+    color: var(--text-color-1);
+}
+
+.bottom-tabs {
+    grid-area: bottom-tabs;
+    background-color: var(--nav-menu-color)
+}
+
+.tab-data {
+    grid-area: tab-data;
+    background-color: var(--color-2);
+    overflow: auto;
+    margin: 5px;
+    margin-left: 20px;
+}
+
+
+.nav-menu {
+    height: 8%;
+    width: 100%;
+    
+}
+
+.nav-menu a {
+    text-decoration: none;
+    color: inherit;
+}
+
+.nav-menu, .bottom-tabs {
+    flex-direction: row;
+    background-color: var(--nav-menu-color);
+    color: var(--text-color-2);
+
+    align-items: center;
+    align-content:stretch;
+    padding: 0px 5px;
+    overflow: hidden;
+    clear: both;
+
+}
+
+.nav-menu form, .nav-menu button{
+    float: right;
+    overflow: hidden;
+    justify-content: flex-end;
+}
+
+.my_button {
+    display:inline-block;
+    padding: 10px 4%;
+    margin: 5px;
+    background-color: var(--buttons-color);
+    color: var(--text-color-2);
+    font-size: inherit;
+    font-family: inherit;
+    cursor: pointer;
+}
+
+
+nav.left-bar {
+    background-color: var(--color-1);
+    color: var(--text-color-2);
+    width: 15%;
+    height: 92%;
+    float: left;
+    display: flex;
+    flex-direction: column;
+}
+
+button {
+    padding : 0px;
+    margin : 0px;
+    background-color:inherit;
+    color:inherit;
+    font-size: inherit;
+    font-family: inherit;
+    cursor: pointer;
+}
+
+.bottom-tabs  button, .nav-menu button {
+    padding : 1%;
+    width: 150px;
+    margin : 0px;
+    background-color: var(--buttons-color);
+    font-size: inherit;
+    font-family: inherit;
+    cursor: pointer;
+}
+
+
+
+@media screen and (max-width: 768px){
+    nav.left-bar, .nav-menu, .main {
+        width: 100%;
+        height: auto;
+    }
+
+    .main{
+        grid-template-columns: 100%;
+        grid-template-rows: auto auto auto auto;
+        grid-template-areas: 
+        "code-field"
+        "right-nav"
+        "bottom-tabs"
+        "tab-data"
+    }
+
+    .code-field, .right-nav, .tab-data {
+        min-height: 50px;
+    }
+
+}
+
+a { color: inherit;
+    text-decoration: none;
+ } 
+input, button, submit { border:none; } 
+
+
+ details > summary {
+    list-style-type: none;
+}
+
+details > summary::-webkit-details-marker {
+    display: none;
+}
+
+details > summary::before {
+    content: '📁';
+}
+
+details[open] > summary::before {
+    content: '📂';
+}
+
+details {
+    border-radius: 0.2rem;
+    padding: 0.2rem;
+}
+
+details[open] > summary {
+    margin-bottom: 0.5rem;
+}
+
+ul {
+    list-style: none;
+}
+
+
+.proved {
+    background-color: green;
+}
+
+.invalid {
+    background-color: red;
+}
+
+.valid {
+    background-color: green;
+}
+
+.counterexample {
+    background-color: tomato;
+}
+
+.unchecked {
+    background-color: yellow;
+}
+
+.unknown {
+    background-color:gray;
+}
+
+.timeout {
+    background-color: gold;
+}
+
+.failed {
+    background-color: red;
+}
+
+.proved, .invalid, .valid, .counterexample, .unchecked, .unknown, .timeout, .failed {
+    margin: 5px 10px;
+    border: 1px solid var(--color-4);
+
+}
+
+.status {
+    font-family: "serif";
+    font-size: 11px;
+    position: relative;
+    display: inline-block;
+    padding: 10px 20px;
+
+}
+
+.status .statustext {
+    visibility: hidden;
+    background-color: black;
+    color: white;
+    width: 300px;
+    border-radius: 6px;
+    padding: 5px 5px;
+    position: absolute;
+    z-index: 1;
+
+}
+
+.status-summary {
+    display: block;
+    font-size: 15px;
+    cursor: pointer;
+    padding: 50px, 50px;
+    height: 50px;
+    text-align: center;
+    border: 1px solid var(--color-4);
+    color: var(--text-color-2);
+}
+
+.file {
+    cursor: pointer;
+}
+
+.result {
+    padding: 20px 20px;
+    margin: 20px;
+    font-family: "serif";
+    font-size: 12px;
+    display: inline-block;
+    background-color:palegoldenrod;
+}
+
+.status:hover .statustext {
+    visibility: visible;
+  }
+
+.code-field pre{
+    counter-reset: line;
+    padding: 0.6em;
+    border-radius: .25em;
+    font-family: monospace;
+    display: block;
+    line-height: 0.4rem;
+}
+code{
+    margin: 4em auto;
+    border-left: rgb(207, 18, 18);
+    counter-increment: line;
+}
+
+code:before{
+    content: counter(line);
+}
+
+.cm-requires_color, .cm-assert_color, .cm-ensures_color, .cm-predicate_color {
+    color: red !important;
+}
+
+.cm-loop_invariant_color, .cm-loop_variant_color {
+    color: yellow !important;
+}
+

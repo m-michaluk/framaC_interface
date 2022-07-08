@@ -1,0 +1,35 @@
+<div class="bottom-tabs">
+    <form method=POST>
+        {% csrf_token %}
+        <button type="submit" name="tab_nr" value=1>PROVERS</button>
+        <button type="submit" name="tab_nr" value=2>VCs</button>
+        <button type="submit" name="tab_nr" value=3>RESULT</button>
+    </form>
+</div>
+<div class="tab-data">
+    {% if tab_nr == "1" %}
+        <form method=POST>
+            {% csrf_token %}
+            {% for p in provers_list %}
+                <p>
+                {% if p == request.session.prover %}
+                    <input type="radio" name="prover" value="{{p}}" checked>{{p}}</button>
+                {% else %}    
+                    <input type="radio" name="prover" value="{{p}}">{{p}}</button>
+                {% endif %}
+                </p>
+            {% endfor %}
+            <input class="my_button" type="submit" name="save_prover" value="Save">
+        </form>    
+    {% elif tab_nr == "2" %}
+        <form method=POST>
+            {% csrf_token %}
+            {{vcform}}
+            <input class="my_button" type="submit" name="save_vcs" value="Save">
+        </form>
+    {% elif tab_nr == "3" %}
+    <pre><div class="result">{{result_text}}
+        </div>
+    </pre>
+    {% endif %}
+</div>

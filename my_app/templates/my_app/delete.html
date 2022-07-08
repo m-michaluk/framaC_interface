@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Delete</title>
+        <style>
+
+        </style>
+    </head>
+    <body>
+        <h1>Delete</h1> 
+        <a href="/"> Go back</a>
+        <form method=POST>
+            {% csrf_token %}
+            {% include "my_app/delete_recursive.html" with tree=tree %}
+            <input type='submit' value='Delete'>
+        </form>
+    </body>
+</html>

@@ -1,0 +1,38 @@
+<form id="delete_form" method=POST action="{% url 'delete_file' %}">
+    {% csrf_token %}
+    {% include "my_app/show_files_recursive.html" with tree=tree %}
+</form>
+
+<button id="delete_btn" class="my_button" value='Delete'>DELETE</button>
+
+<script type="text/javascript">
+    function delete_and_refresh(){
+            $.post(
+                $('#delete_form').attr('action'),
+                $('#delete_form').serialize(),
+                function (response) {
+                    $(".left-bar").html(response);
+                })
+    }
+    $("#delete_btn").click(delete_and_refresh);
+
+
+    function choose_file(id){
+        var data = {"file_id" : id, "csrfmiddlewaretoken": "{{csrf_token }}"};
+        $.post(
+            "{% url 'choose_file' %}",
+            data,
+            function(response) {
+                if(response){
+                    $(".code-field").html(response['code_field']);
+                    $(".right-nav").html(response['right_field']);
+                    if(response['result_tab']){
+                        $(".result").html(response['result_text']);
+                    }
+                
+                }
+                
+            }
+        );  
+    }
+</script>

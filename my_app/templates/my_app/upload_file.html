@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Upload</title>
+        <style>
+
+        </style>
+    </head>
+    <body>
+        <h1>Upload File</h1> 
+        <a href="/">Go back</a>
+        <form method=POST enctype="multipart/form-data">
+            {% csrf_token %}
+            {{form.as_p}}
+            <input type='submit' value='Save'>
+        </form>
+    </body>
+</html>

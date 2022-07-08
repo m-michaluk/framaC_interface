@@ -1,0 +1,25 @@
+{% if file != None %}
+<div id="editor"></div>
+
+<script type="text/javascript">
+    var code = "{{text_field|escapejs}}";
+    var editor = CodeMirror(document.getElementById("editor"),{
+        lineNumbers:true,
+        tabSize:4,
+        mode:"text/x-csrc",
+        value : code,
+        theme : "ambiance",
+        keyword: {
+            "requires": "requires_color",
+            "assert": "assert_color",
+            "ensures": "ensures_color",
+            "predicate": "predicate_color",
+            "loop invariant": "loop_invariant_color",
+            "loop variant" : "loop_variant_color",
+        }
+    });
+    editor.setSize("100%", "100%");
+    editor.refresh();
+</script>
+
+{% endif %}
